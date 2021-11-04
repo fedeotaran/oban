@@ -108,16 +108,19 @@ defmodule Oban.Query do
   defp insert_unique(%Config{} = conf, changeset) do
     query_opts = [on_conflict: :nothing]
 
+
     with {:ok, query, lock_key} <- unique_query(changeset),
          :ok <- acquire_lock(conf, lock_key, query_opts),
          {:ok, job} <- unprepared_one(conf, query, query_opts),
          {:ok, job} <- return_or_replace(conf, query_opts, job, changeset) do
+      IO.inspect(label: "#{__MODULE__}.insert_unique - line 116")
       {:ok, %Job{job | conflict?: true}}
     else
       {:error, :locked} ->
         {:ok, Changeset.apply_changes(changeset)}
 
       nil ->
+        IO.inspect(label: "#{__MODULE__}.insert_unique - line 123")
         Repo.insert(conf, changeset, query_opts)
 
       error ->
