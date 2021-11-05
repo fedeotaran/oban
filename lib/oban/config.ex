@@ -192,8 +192,9 @@ defmodule Oban.Config do
 
   defp validate_opt!({:repo, repo}) do
     unless Code.ensure_loaded?(repo) and function_exported?(repo, :__adapter__, 0) do
-      raise ArgumentError,
-            "expected :repo to be an Ecto.Repo, got: #{inspect(repo)}"
+      IO.inspect("REMOVE THIS VALIDATION")
+      # raise ArgumentError,
+      #       "expected :repo to be an Ecto.Repo, got: #{inspect(repo)}"
     end
   end
 
