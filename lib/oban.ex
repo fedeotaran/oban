@@ -226,7 +226,7 @@ defmodule Oban do
   def insert(name \\ __MODULE__, %Changeset{} = changeset) do
     name
     |> config()
-    |> IO.inspect(label: "#{__MODULE__}.insert - line 229")
+    |> IO.inspect(label: "#{__MODULE__}.insert:229")
     |> Query.fetch_or_insert_job(changeset)
   end
 

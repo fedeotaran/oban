@@ -113,14 +113,14 @@ defmodule Oban.Query do
          :ok <- acquire_lock(conf, lock_key, query_opts),
          {:ok, job} <- unprepared_one(conf, query, query_opts),
          {:ok, job} <- return_or_replace(conf, query_opts, job, changeset) do
-      IO.inspect(label: "#{__MODULE__}.insert_unique - line 116")
+      IO.inspect("#{__MODULE__}.insert_unique:116")
       {:ok, %Job{job | conflict?: true}}
     else
       {:error, :locked} ->
         {:ok, Changeset.apply_changes(changeset)}
 
       nil ->
-        IO.inspect(label: "#{__MODULE__}.insert_unique - line 123")
+        IO.inspect("#{__MODULE__}.insert_unique:123")
         Repo.insert(conf, changeset, query_opts)
 
       error ->

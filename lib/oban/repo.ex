@@ -64,6 +64,7 @@ defmodule Oban.Repo do
   @spec insert(Config.t(), Schema.t() | Changeset.t(), Keyword.t()) ::
           {:ok, Schema.t()} | {:error, Changeset.t()}
   def insert(conf, struct_or_changeset, opts \\ []) do
+    IO.inspect(conf.repo, label: "#{__MODULE__}.insert:67")
     with_dynamic_repo(
       conf,
       fn -> conf.repo.insert(struct_or_changeset, query_opts(conf, opts)) end
